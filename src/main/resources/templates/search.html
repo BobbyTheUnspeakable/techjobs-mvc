@@ -35,12 +35,13 @@
     </form>
 
     <hr />
-    <div th:if="${jobs} and ${jobs.size()}">
+
+    <div th:fragment="job-listing" th:if="${jobs}">
     <h3 th:text="${#lists.size(jobs)} + ' Result(s)'"></h3>
 
-    <table th:fragment="job-listing" th:each="job : ${jobs}" class="job-listing">
-        <tbody th:each="field : ${job}">
-            <tr>
+    <table th:each="job : ${jobs}" class="job-listing">
+        <tbody>
+            <tr th:each="field, idx : ${job}" th:class="${idx.odd} ? 'odd'">
                 <td th:text="${#strings.capitalizeWords(field.getKey())}"></td>
                 <td th:text="${field.getValue()}"></td>
             </tr>
